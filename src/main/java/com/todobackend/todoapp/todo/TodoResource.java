@@ -28,5 +28,16 @@ public class TodoResource {
         todoService.deleteById(id);
     }
 
+    @PutMapping(path ="/users/{username}/todos/{id}")
+    public Todo updateTodoById(@PathVariable String username, @PathVariable Integer id, @RequestBody Todo todo){
+        todoService.updateTodo(todo);
+        return todo;
+    }
+
+    @PostMapping(path ="/users/{username}/todos")
+    public Todo createTodo(@PathVariable String username, @RequestBody Todo todo){
+        return todoService.addTodo(username, todo.getDescription(), todo.getTargetDate(), todo.isDone());
+    }
+
 
 }
