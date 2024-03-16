@@ -55,9 +55,13 @@ public class JwtSecurityConfig {
                 .authorizeRequests(
                         auth ->
                                 auth
-                                        .requestMatchers("/authenticate").permitAll() // Use requestMatchers()
+
+                                        .requestMatchers("/authenticate", "/h2-console/**").permitAll() // Use requestMatchers()
                                         .anyRequest()
                                         .authenticated()) // (3)
+                .headers(headers -> headers.frameOptions().disable())
+//                .csrf(csrf -> csrf
+//                        .ignoringRequestMatchers("/h2-console/**"))
                 .oauth2ResourceServer(
                         OAuth2ResourceServerConfigurer::jwt) // (4)
                 .exceptionHandling(
